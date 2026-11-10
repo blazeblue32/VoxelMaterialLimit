@@ -22,6 +22,12 @@ namespace VoxelMaterialLimit
             return fileName != null && (EndsWith(fileName, LimitFile) || EndsWith(fileName, VertexFile));
         }
 
+        // True for a rewrite that only matters to the voxel material shaders (so other shaders are left as the game has them).
+        public static bool VoxelOnly(string fileName)
+        {
+            return fileName != null && EndsWith(fileName, VertexFile);
+        }
+
         // Returns the rewritten text; the text itself when the file has no match (the caller logs that).
         public static string Rewrite(string fileName, string text)
         {

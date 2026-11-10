@@ -9,6 +9,7 @@
     <Import_RootNamespace>VoxelMaterialLimit</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)PatchedIncludeStream.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShaderLimitPatch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShaderOverlay.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShaderRewrites.cs" />

@@ -26,7 +26,7 @@ A line starting `WARNING` means a game update changed what the plugin looks for;
 ## Platforms
 | Setup | How it works |
 |---|---|
-| Stock Windows (Pulsar) | A hook on the game's shader include reader changes the text as it is read. Nothing is written to disk. |
+| Stock Windows (Pulsar) | A hook on the game's shader include reader changes the text as it is read. Nothing is written to disk. A file whose text was changed is served from memory, and the plugin makes sure the files it includes are still found next to the original. Only the voxel material shaders get the vertex change, so every other shader keeps its cached bytecode. |
 | Linux with the LinuxCompat plugin | LinuxCompat compiles shaders with a native compiler that reads the shader folder itself, so the hook above is never used. The plugin makes a local mirror of your own shader folder under `<user data>/Storage/VoxelMaterialLimit/Shaders` (links to your original files, plus two rewritten copies) and points only the voxel material shader compiles at it. It relies on LinuxCompat's class and method names; if they change the plugin logs that and does nothing. |
 
 Tested on Linux with the .NET 10 Pulsar flavour. The code compiles for .NET Framework 4.8 and .NET 10.

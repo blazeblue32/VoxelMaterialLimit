@@ -75,7 +75,9 @@ namespace VoxelMaterialLimit
         {
             try
             {
-                string mirror = Path.Combine(StorageRoot(), "VoxelMaterialLimit", "Shaders");
+                string storage = StorageRoot();
+                if (storage == null) { ShaderLimitPatch.Log("the game's user data folder is not available; the shader mirror is off"); return null; }
+                string mirror = Path.Combine(storage, "VoxelMaterialLimit", "Shaders");
                 int links = 0, copies = 0;
                 foreach (string dir in Directory.EnumerateDirectories(source, "*", SearchOption.AllDirectories).Prepend(source))
                     Directory.CreateDirectory(Path.Combine(mirror, Relative(source, dir)));
@@ -141,10 +143,11 @@ namespace VoxelMaterialLimit
             return full.Length <= start.Length ? "" : full.Substring(start.Length + 1);
         }
 
+        // Only ever the game's own user data folder (which follows its -appdata setting); if that is not available, there is no mirror.
         static string StorageRoot()
         {
             try { return Path.Combine(VRage.FileSystem.MyFileSystem.UserDataPath, "Storage"); }
-            catch { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SpaceEngineers", "Storage"); }
+            catch { return null; }
         }
     }
 }
